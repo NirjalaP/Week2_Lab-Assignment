@@ -1,0 +1,87 @@
+/* Reset */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f6f9;
+}
+
+/* Header */
+.header {
+  background-color: #00c4f5;
+  color: white;
+  padding: 20px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header h1 {
+  font-size: 24px;
+  font-weight: bold;
+  color: black;
+}
+
+.cart {
+  color: black;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.product-list {
+  padding: 20px 40px;
+  background-color: white;
+}
+
+/* Product Row */
+.product {
+  display: flex;
+  flex-direction: column; /* stack title on top */
+  padding: 20px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.product:last-child {
+  border-bottom: none;
+}
+
+.product h3 {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: #222;
+}
+
+/* Image + quantity side by side */
+.product-img {
+  width: 100px;
+  height: auto;
+  margin-right: 40px;
+}
+
+.product > div {
+  display: flex;
+  align-items: center;
+}
+
+/* Quantity Control */
+.quantity-control {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.quantity-control input[type="number"] {
+  width: 50px;
+  height: 40px;
+  font-size: 16px;
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
