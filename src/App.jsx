@@ -1,35 +1,45 @@
-import React from "react";
-import "./styles.css"
-import Product from "./Product";
+import { useState } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Navbar from "./Navbar";
+import DisplayProducts from "./DisplayProducts";
+import productsData from "./Products";
+import Cart from "./Cart";
 
+function App() {
+  const [cart, setCart] = useState({});
 
-function App(){
-    const products= [
-        {id: 1, description: "Unisex Cologne", image: "/products/cologne.jpg", value: 0 },
-        {id: 2, description: "Apple iWatch", image: "/products/iwatch.jpg", value: 0 },
-        {id: 3, description: "Unique Mug", image: "/products/mug.jpg", value: 0 },
-        {id: 4, description: "Mens wallet", image: "/products/wallet.jpg", value: 0 }
-    ]
-return(
-    <div>
-      {/* Header */}
-       <header className="header">
-        <h1>Shop to react</h1>
-        <div className="cart">
-            <i class="fa-solid fa-cart-shopping"></i>
-            0 items
-        </div>
-       </header>
+  const addItem = (id) => {
+    setCart((prev) => ({ ...prev, [id]: (prev[id] || 0) + 1 }));
+  };
 
-        <div className="product-list">
-            
-        {products.map((p) => (
-          <Product key={p.id} {...p} />
-        ))}
-        </div>
+  const removeItem = (id) => {
+    setCart((prev) => {
+      if (!prev[id]) return prev;
+      const newCart = { ...prev, [id]: prev[id] - 1 };
+      if (newCart[id] <= 0) delete newCart[id];
+      return newCart;
+    });
+  };
 
-    </div>
-)
+  const cartCount = Object.values(cart).reduce((a, b) => a + b, 0);
+
+  return (
+    <Router>
+      <Navbar cartCount={cartCount} />
+      <div className="container mt-4">
+        <Routes>
+          <Route
+            path="/"
+            element={<DisplayProducts products={productsData} addItem={addItem} removeItem={removeItem} />}
+          />
+          <Route
+            path="/cart"
+            element={<Cart products={productsData} cart={cart} />}
+          />
+        </Routes>
+      </div>
+    </Router>
+  );
 }
 
 export default App;
